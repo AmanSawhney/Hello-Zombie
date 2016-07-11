@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "87B580E65B8AE9E7205825BC92536762AD3EE750",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E78EEC0FD4ABFE472389C76D3D6603EDBC67D5C5" : 0,
+    "87B580E65B8AE9E7205825BC92536762AD3EE750" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "051B1759-CDE5-482D-83AE-D0DB6785D725",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E78EEC0FD4ABFE472389C76D3D6603EDBC67D5C5" : "GunTeamStudios\/KitchenBalance",
+    "87B580E65B8AE9E7205825BC92536762AD3EE750" : "ZombieDash"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ZombieDash",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ZombieDash.spritebuilder\/ZombieDash.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:qwefghnm\/ZombieDash.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "87B580E65B8AE9E7205825BC92536762AD3EE750"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:GunTeam\/KitchenBalance.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E78EEC0FD4ABFE472389C76D3D6603EDBC67D5C5"
+    }
+  ]
+}

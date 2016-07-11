@@ -1,0 +1,19 @@
+PODS:
+  - ChartboostSDK (5.5.3)
+  - FlurrySDK/FlurryAds (6.6.0):
+    - FlurrySDK/FlurrySDK
+  - FlurrySDK/FlurrySDK (6.6.0)
+  - Google-Mobile-Ads-SDK (7.3.1)
+
+DEPENDENCIES:
+  - ChartboostSDK
+  - FlurrySDK/FlurryAds
+  - FlurrySDK/FlurrySDK
+  - Google-Mobile-Ads-SDK (~> 7.0)
+
+SPEC CHECKSUMS:
+  ChartboostSDK: 9bf9427b4c306773ea9f7d8cf974b4a3a0f1e61e
+  FlurrySDK: b79d7125293904a572d7539e64cd9d887f46176b
+  Google-Mobile-Ads-SDK: 3647bfddc7384c514ab96a8bed86d98b31e623e4
+
+COCOAPODS: 0.38.0

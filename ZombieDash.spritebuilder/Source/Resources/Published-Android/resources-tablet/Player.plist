@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>Player/Frame_1.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{386, 1}, {383, 400}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 400}}</string>
+			<key>sourceSize</key>
+			<string>{383, 400}</string>
+		</dict>
+		<key>Player/Frame_2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {383, 400}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 400}}</string>
+			<key>sourceSize</key>
+			<string>{383, 400}</string>
+		</dict>
+		<key>Player/Frame_jump.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{386, 403}, {383, 400}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 400}}</string>
+			<key>sourceSize</key>
+			<string>{383, 400}</string>
+		</dict>
+		<key>Player/car.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{771, 403}, {308, 225}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<true/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {308, 225}}</string>
+			<key>sourceSize</key>
+			<string>{308, 225}</string>
+		</dict>
+		<key>Player/frame_dead.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 805}, {266, 191}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {266, 191}}</string>
+			<key>sourceSize</key>
+			<string>{266, 191}</string>
+		</dict>
+		<key>Player/frame_down.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{771, 1}, {383, 400}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 400}}</string>
+			<key>sourceSize</key>
+			<string>{383, 400}</string>
+		</dict>
+		<key>Player/frame_down_2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 403}, {383, 400}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 400}}</string>
+			<key>sourceSize</key>
+			<string>{383, 400}</string>
+		</dict>
+		<key>Player/herobig.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{269, 805}, {51, 60}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>rotated</key>
+			<false/>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {51, 60}}</string>
+			<key>sourceSize</key>
+			<string>{51, 60}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>2</integer>
+		<key>size</key>
+		<string>{2048, 1024}</string>
+		<key>textureFileName</key>
+		<string>Player.png</string>
+	</dict>
+</dict>
+</plist>
