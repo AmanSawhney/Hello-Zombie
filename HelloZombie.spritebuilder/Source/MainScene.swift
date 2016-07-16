@@ -2,15 +2,12 @@ import Foundation
 import UIKit
 import GameKit
 import StoreKit
-import GoogleMobileAds
 
 var score: Int!
 
-class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, ChartboostDelegate, CCPhysicsCollisionDelegate {
+class MainScene: CCScene, CCPhysicsCollisionDelegate {
     var screenSize = UIScreen.mainScreen().bounds
     let view: UIViewController = CCDirector.sharedDirector().parentViewController! // Returns a UIView of the cocos2d view controller.
-    var interstitialAdView: UIViewController = UIViewController()
-    let adInterstitial = FlurryAdInterstitial(space:"FullScreen Ad")
     weak var leftFinger: CCSprite!
     weak var rightFinger: CCSprite!
     weak var madScientist: CCSprite! //Main Character
@@ -25,9 +22,6 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
     var ad: Bool!
     var bulletshoot: Bool!
     func didLoadFromCCB() {
-        let adBanner = FlurryAdBanner(space:"ADSPACE");
-        adBanner.adDelegate = self
-        adBanner.fetchAndDisplayAdInView(view.view, viewControllerForPresentation: view);
         bulletshoot = false
         ad = false
         GameCenterHelper.sharedInstance.authenticationCheck()
@@ -35,12 +29,12 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
         speed = 200 //Sets Inital Speed
         userInteractionEnabled = true // enables User Interaction
         gamePhysicsNode.collisionDelegate = self // sets colision delegate
-        var layer1 = randomLayer()
+        let layer1 = randomLayer()
         layer1.zOrder--
         madScientist.position.y = layer1.contentSizeInPoints.height
         gamePhysicsNode.addChild(layer1)
         buildingLayerArray.append(layer1)
-        var layer2 = randomLayer()
+        let layer2 = randomLayer()
         layer2.zOrder--
         layer2.position.x = layer2.contentSizeInPoints.width
         buildingLayerArray.append(layer2)
@@ -49,21 +43,10 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
         score = 0
         shooting = true
         multipleTouchEnabled = true
-        Chartboost.cacheInterstitial(CBLocationGameOver)
         
     }
     override func onEnter() {
         super.onEnter()
-        Chartboost.cacheInterstitial(CBLocationGameOver)
-        var adB = GADBannerView(frame:CGRectMake(0, screenSize.height - 30, screenSize.width, 30)) // create the banner
-        adB.adUnitID = "ca-app-pub-4509898719172538/4387077408"
-        adB.delegate = self
-        adB.rootViewController = view
-        var request = GADRequest()
-        adB.loadRequest(request)
-        CCDirector.sharedDirector().view.addSubview(adB)
-        FlurryAds.setAdDelegate(self)
-        FlurryAds.fetchAdForSpace("FullScreen Ad", frame: CGRectMake((self.contentSize.width/2),(self.contentSize.height/2), self.contentSize.width, self.contentSize.height) , size: FULLSCREEN)
         let worldBound = CGRect(x: 0, y: 0, width: contentSizeInPoints.width, height: contentSizeInPoints.height) //creates world bounds for follow
         let actionFollow = CCActionFollow(target: madScientist, worldBoundary: worldBound) //creates follow action
         self.runAction(actionFollow) //runs action
@@ -83,12 +66,12 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             if touch.locationInWorld().x > CCDirector.sharedDirector().viewSize().width/2{
                 if shooting == true {
                     if bulletshoot == false {
-                        var move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp((madScientist.contentSize.width)/200, 2)))
-                        var moveBack = CCActionEaseBounceOut(action: move.reverse())
-                        var shakeSequence1 = CCActionSequence(array: [move, moveBack])
+                        let move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp((madScientist.contentSize.width)/200, 2)))
+                        let moveBack = CCActionEaseBounceOut(action: move.reverse())
+                        let shakeSequence1 = CCActionSequence(array: [move, moveBack])
                         madScientist.runAction(shakeSequence1)
                         bulletshoot = true
-                        var bullet = CCBReader.load("Bullet")
+                        let bullet = CCBReader.load("Bullet")
                         bullet.position = ccp(181.7, 130)
                         madScientist.addChild(bullet)
                         bullet.physicsBody.sensor = true
@@ -107,17 +90,6 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
     func bulletReset() {
         bulletshoot = false
     }
-    func ads() {
-        if Chartboost.hasInterstitial(CBLocationGameOver) {
-            Chartboost.showInterstitial(CBLocationGameOver)
-            Chartboost.cacheInterstitial(CBLocationGameOver)
-            
-        } else {
-            
-            showInterstitial()
-        }
-        print("HI")
-    }
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, hero: CCSprite!, DEATH: CCNode!) -> Bool {
         hero.zOrder += 10
         if hero.animationManager.runningSequenceName != "Death Timeline"{
@@ -130,18 +102,6 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             self.animationManager.runAnimationsForSequenceNamed("GameOver Timeline")
             gameOverNode.position.y = 0
         }
-        if ad == false {
-            ad = true
-            if Chartboost.hasInterstitial(CBLocationGameOver) {
-                Chartboost.showInterstitial(CBLocationGameOver)
-                Chartboost.cacheInterstitial(CBLocationGameOver)
-                
-            } else {
-                
-                showInterstitial()
-            }
-
-        }
         return true
     }
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, zombie: CCSprite!, bullet: CCSprite!) -> Bool {
@@ -153,11 +113,11 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             speed! += 2
             score!++
             if self.numberOfRunningActions() == 1 {
-                var move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0, (zombie.contentSize.width)/20)))
-                var moveBack = CCActionEaseBounceOut(action: move.reverse())
-                var move1 = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0, -(zombie.contentSize.width)/20)))
-                var moveBack1 = CCActionEaseBounceOut(action: move1.reverse())
-                var shakeSequence1 = CCActionSequence(array: [move, moveBack, move1, moveBack1])
+                let move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0, (zombie.contentSize.width)/20)))
+                let moveBack = CCActionEaseBounceOut(action: move.reverse())
+                let move1 = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0, -(zombie.contentSize.width)/20)))
+                let moveBack1 = CCActionEaseBounceOut(action: move1.reverse())
+                let shakeSequence1 = CCActionSequence(array: [move, moveBack, move1, moveBack1])
                 self.runAction(shakeSequence1)
                 
             }
@@ -173,11 +133,11 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
     }
     func ccPhysicsCollisionBegin(pair: CCPhysicsCollisionPair!, zombie: CCSprite!, hero: CCSprite!) -> Bool {
         if zombie.animationManager.runningSequenceName != "Death Timeline" && hero.animationManager.runningSequenceName != "Death Timeline" && hero.position.y - hero.contentSize.height/2 < zombie.position.y {
-            var move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp((zombie.contentSize.width)/2, 0)))
-            var moveBack = CCActionEaseBounceOut(action: move.reverse())
-            var move1 = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0, -(zombie.contentSize.width)/2)))
-            var moveBack1 = CCActionEaseBounceOut(action: move1.reverse())
-            var shakeSequence1 = CCActionSequence(array: [move, moveBack, move1, moveBack1])
+            let move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp((zombie.contentSize.width)/2, 0)))
+            let moveBack = CCActionEaseBounceOut(action: move.reverse())
+            let move1 = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0, -(zombie.contentSize.width)/2)))
+            let moveBack1 = CCActionEaseBounceOut(action: move1.reverse())
+            let shakeSequence1 = CCActionSequence(array: [move, moveBack, move1, moveBack1])
             self.runAction(shakeSequence1)
             zombie.animationManager.runAnimationsForSequenceNamed("Death Timeline")
             zombie.physicsBody.sensor = true
@@ -188,23 +148,11 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             self.animationManager.runAnimationsForSequenceNamed("GameOver Timeline")
             gameOverNode.position.y = 0
             speed! += 1
-            if ad == false {
-                ad = true
-                if Chartboost.hasInterstitial(CBLocationGameOver) {
-                    Chartboost.showInterstitial(CBLocationGameOver)
-                    Chartboost.cacheInterstitial(CBLocationGameOver)
-                    
-                } else {
-                    
-                    showInterstitial()
-                }
-
-            }
         } else {
             if zombie.animationManager.runningSequenceName != "Death Timeline" {
-                var move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0 , -(zombie.contentSize.width)/20)))
-                var moveBack = CCActionEaseBounceOut(action: move.reverse())
-                var shakeSequence1 = CCActionSequence(array: [move, moveBack])
+                let move = CCActionEaseBounceOut(action: CCActionMoveBy(duration: 0.1, position: ccp(0 , -(zombie.contentSize.width)/20)))
+                let moveBack = CCActionEaseBounceOut(action: move.reverse())
+                let shakeSequence1 = CCActionSequence(array: [move, moveBack])
                 self.runAction(shakeSequence1)
                 zombie.animationManager.runAnimationsForSequenceNamed("Death Timeline")
                 NSThread.sleepForTimeInterval(0.062)
@@ -222,8 +170,8 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
     func takePresentScreenshot() -> UIImage {
         CCDirector.sharedDirector().nextDeltaTimeZero = true
         
-        var size: CGSize = CCDirector.sharedDirector().viewSize()
-        var renderTxture: CCRenderTexture = CCRenderTexture(width: Int32(size.width), height: Int32(size.height))
+        let size: CGSize = CCDirector.sharedDirector().viewSize()
+        let renderTxture: CCRenderTexture = CCRenderTexture(width: Int32(size.width), height: Int32(size.height))
         renderTxture.begin()
         CCDirector.sharedDirector().runningScene.visit()
         renderTxture.end()
@@ -232,7 +180,7 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
     }
     func spawnZombies() {
         if madScientist != nil {
-            var zombie = CCBReader.load("Zombie") as! CCSprite
+            let zombie = CCBReader.load("Zombie") as! CCSprite
             zombie.scale = 0.5
             zombie.position = ccp(madScientist.position.x + CCDirector.sharedDirector().viewSize().width*2, madScientist.position.y + 40)
             zombie.physicsBody.velocity.x = -CGFloat(Double(speed)/2)
@@ -241,7 +189,7 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
         }
     }
     func retry() {
-        var gameScene : CCScene =  CCBReader.loadAsScene("MainScene")
+        let gameScene : CCScene =  CCBReader.loadAsScene("MainScene")
         CCDirector.sharedDirector().replaceScene(gameScene)
     }
     func share() {
@@ -254,7 +202,7 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             view.presentViewController(activityVC, animated: true, completion: nil)
         } else {
             
-            var popup = UIPopoverController(contentViewController: activityVC)
+            let popup = UIPopoverController(contentViewController: activityVC)
             popup.presentPopoverFromRect(CGRectMake(screenSize.width/2, screenSize.height/4, 0, 0), inView: CCDirector.sharedDirector().view, permittedArrowDirections: UIPopoverArrowDirection.Unknown, animated: true)
             
         }
@@ -286,8 +234,8 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             let groundScreenPosition = convertToNodeSpace(groundWorldPosition)
             if groundScreenPosition.x <= (-zombie.contentSize.width) {
                 zombie.removeFromParentAndCleanup(true)
-                zombieArray.removeAtIndex(find(zombieArray, zombie)!)
-                println("REMOVED")
+                zombieArray.removeAtIndex(zombieArray.indexOf(zombie)!)
+                print("REMOVED")
             }
             
         }
@@ -325,8 +273,8 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
                 }
                 
             }
-            println("score node position\(scoreNode.position)")
-            println("madScients \(madScientistScreenPosition)")
+            print("score node position\(scoreNode.position)")
+            print("madScients \(madScientistScreenPosition)")
             
             
             if Int(delta)%3 == 0 {
@@ -343,8 +291,8 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
             let oldLayerWorldPosition = gamePhysicsNode.convertToWorldSpace(oldLayer.position)
             let oldLayerScreenPosition = convertToNodeSpace(oldLayerWorldPosition)
             if oldLayerScreenPosition.x <= (-oldLayer.contentSize.width) {
-                buildingLayerArray.removeAtIndex(find(buildingLayerArray, oldLayer)!)
-                var newLayer = randomLayer()
+                buildingLayerArray.removeAtIndex(buildingLayerArray.indexOf(oldLayer)!)
+                let newLayer = randomLayer()
                 newLayer.position = ccp(oldLayer.position.x + newLayer.contentSize.width * 2, newLayer.position.y)
                 oldLayer.removeFromParentAndCleanup(true)
                 
@@ -355,53 +303,7 @@ class MainScene: CCScene, FlurryAdBannerDelegate, GADBannerViewDelegate, Chartbo
     }
 }
 
-extension MainScene: FlurryAdInterstitialDelegate {
-    func adInterstitial(interstitialAd: FlurryAdInterstitial!, adError: FlurryAdError, errorDescription: NSError!) {
-        println(errorDescription)
-    }
-    
-    func adInterstitialVideoDidFinish(interstitialAd: FlurryAdInterstitial!) {
-        
-    }
-    
-    func showInterstitial() {
-        //        if FlurryAds.adReadyForSpace("FullScreen Ad") {
-        //            FlurryAds.displayAdForSpace("FullScreen Ad", onView: CCDirector.sharedDirector().view, viewControllerForPresentation: CCDirector.sharedDirector().parentViewController!)
-        //        }
-    }
-    
-    func presentInterstitial(){
-        //        //logic so they aren't bombarded with ads every time
-        //        if adInterstitial.ready {
-        //            adInterstitial.presentWithViewController(view)
-        //        } else {
-        //            adInterstitial.fetchAd()
-        //        }
-    }
-    
-    func spaceDidDismiss(adSpace: NSString, interstitial: Bool) {
-        if (interstitial) { // Resume app state
-            // [[SimpleAudioEngine sharedEngine] resume];
-            CCDirector.sharedDirector().resume()
-        }
-        
-    }
-    
-    override func onExit() {
-        super.onExit()
-        FlurryAds.setAdDelegate(nil)
-    }
-    
-    
-    func spaceShouldDisplay(adSpace: NSString, interstitial: Bool) -> Bool{
-        if (interstitial) { //pause state
-            CCDirector.sharedDirector().pause()
-        }
-        // Continue ad display
-        return true
-    }
-    
-}
+
 
 // MARK: Game Center Handling
 extension MainScene: GKGameCenterControllerDelegate {
@@ -416,7 +318,7 @@ extension MainScene: GKGameCenterControllerDelegate {
     }
     
     // Delegate methods
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     

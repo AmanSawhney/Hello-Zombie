@@ -14,11 +14,3 @@
 #import "libs/cocos2d-iphone/external/ObjectAL/ObjectAL/ObjectAL/AudioTrack/OALAudioTrack.h"
 #import "libs/cocos2d-iphone/external/ObjectAL/ObjectAL/ObjectAL/AudioTrack/OALAudioTracks.h"
 #import "libs/cocos2d-iphone/external/ObjectAL/ObjectAL/ObjectAL/Session/OALAudioSession.h"
-#import "Flurry.h"
-#import "FlurryAds.h"
-#import "FlurryAdInterstitialDelegate.h"
-#import "FlurryAdInterstitial.h"
-#import "FlurryAdBanner.h"
-#import "FlurryAdBannerDelegate.h"
-#import <Chartboost/Chartboost.h>
-#import <Chartboost/CBAnalytics.h>

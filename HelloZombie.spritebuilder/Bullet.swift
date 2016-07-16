@@ -11,8 +11,8 @@ import Foundation
 class Bullet: CCNode{
     
     func didLoadFromCCB(){
-        var delay = CCActionDelay(duration: 1)
-        var remove = CCActionCallBlock(block: {self.removeFromParent()})
+        let delay = CCActionDelay(duration: 1)
+        let remove = CCActionCallBlock(block: {self.removeFromParent()})
         
         runAction(CCActionSequence(array: [delay, remove]))
     }

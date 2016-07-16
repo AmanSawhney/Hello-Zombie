@@ -16,7 +16,7 @@ class HighScoreNode: CCNode {
     weak var tens: CCSprite!
     weak var hundreds: CCSprite!
     override func update(delta: CCTime) {
-        var highScore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+        let highScore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
         GameCenterHelper.sharedInstance.saveHighScore(Double(highScore))
         hundreds.spriteFrame = CCSpriteFrame(imageNamed: "HUD/Numbers_\((Int(Double(highScore)/100)%10)).png")
         tens.spriteFrame = CCSpriteFrame(imageNamed: "HUD/Numbers_\((Int(Double(highScore)/10)%10)).png")
@@ -27,15 +27,15 @@ extension HighScoreNode: GKGameCenterControllerDelegate {
     
     func showLeaderboard() {
         
-        var viewController = CCDirector.sharedDirector().parentViewController!
-        var gameCenterViewController = GKGameCenterViewController()
+        let viewController = CCDirector.sharedDirector().parentViewController!
+        let gameCenterViewController = GKGameCenterViewController()
         gameCenterViewController.gameCenterDelegate = self
         viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
         
     }
     
     // Delegate methods
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
 }

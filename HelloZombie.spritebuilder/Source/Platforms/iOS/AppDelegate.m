@@ -28,20 +28,12 @@
 #import "AppDelegate.h"
 #import "CCBuilderReader.h"
 #import "OALSimpleAudio.h"
-#import "Flurry.h"
-#import "FlurryAds.h"
-#import <Chartboost/Chartboost.h>
 
 
 @implementation AppController
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Chartboost startWithAppId:@"5619a99f0d60255cc86e8691"
-                  appSignature:@"ea56451ef041ebafd6c2cefc5c57ad451f7b88a4"
-                      delegate:self];
-    [Flurry setCrashReportingEnabled:YES];
-    [Flurry startSession:@"PY2BDMG78JCH2PMCNBDX"];
     [[OALSimpleAudio sharedInstance] playBg:@"8bitmelody.wav" loop:true];
 
     // Configure Cocos2d with the options set in SpriteBuilder
