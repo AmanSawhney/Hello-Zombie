@@ -22,6 +22,6 @@ The player only gains points by killing zombies, and with each death the player 
 There are no levels; There is only one-player game mode.
 
 ### Controls/Input
-* Touch based controls - Outlined in the game play mechanics  
+Touch based controls - Outlined in the game play mechanics  
 
 
